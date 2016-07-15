@@ -1,68 +1,52 @@
 #include "cmpfile.h"
+
+
+
 // ifstream dbfs()
 
-// inline void trimSpace(vector<string>& datas, istringstream& iss){
-//   string tmp;
-//   char ch;
-//   while(iss.get(ch)){
-//     if(isspace(ch))
-//       continue;
-//     tmp += ch;
-//   }
-//   if(tmp !="")
-//   datas.push_back(tmp);
-// }
+inline void trimSpace(vector<string>& datas, istringstream& iss){
+  string tmp;
+  char ch;
+  while(iss.get(ch)){
+    if(isspace(ch))
+      continue;
+    tmp += ch;
+  }
+  if(tmp !="")
+  datas.push_back(tmp);
+}
 
 
-// void rFile(vector<string>& sdata, istream& ifs){
+void rFile(vector<string>& sdata, istream& ifs){
 	
-// 	string ss;
+	string ss;
 	
-// 	while(getline(ifs, ss)){
-// 		istringstream iss(ss);
-// 		trimSpace(sdata, iss);
-// 	}
+	while(getline(ifs, ss)){
+		istringstream iss(ss);
+		trimSpace(sdata, iss);
+	}
 	
-// }
+}
 
-// void wUniq(ostream& oss,std::vector<string>& w, vector<int>& vv, bool  db, char fDelimiter=',',char tDelimiter='"'){
-//   if(db){
-// 	for(int i=0; i < vv.size(); ++i){
-// 		oss<<tDelimiter<<w[i]<<tDelimiter<<fDelimiter<<tDelimiter<<vv[i]<<tDelimiter<<fDelimiter<<tDelimiter<<"0"<<tDelimiter<<endl;
-// 	}
-//   }
-//   else{
-//     for(int i=0; i < vv.size(); ++i){
-// 		oss<<tDelimiter<<w[i]<<tDelimiter<<fDelimiter<<tDelimiter<<"0"<<tDelimiter<<fDelimiter<<tDelimiter<<vv[i]<<tDelimiter<<endl;
-// 	}
-//   }
+void wUniq(ostream& oss, splusi s, bool t=true,char fDelimiter=',',char tDelimiter='"'){
+	if(t)
+	for(int i=0; i < s.vs.size(); ++i){
+		oss<<tDelimiter<<s.vs[i]<<tDelimiter<<fDelimiter<<tDelimiter<<s.vi[i]<<tDelimiter<<fDelimiter<<tDelimiter<<"0"<<tDelimiter<<endl;
+	}
+	else
+    for(int i=0; i < s.vs.size(); ++i){
+		oss<<tDelimiter<<s.vs[i]<<tDelimiter<<fDelimiter<<tDelimiter<<"0"<<tDelimiter<<fDelimiter<<tDelimiter<<s.vi[i]<<tDelimiter<<endl;
+	}
+}
     
 
-// }
 
 
-// void wRep(ostream& oss, std::vector<string>& w,  std::vector<int>& db, std::vector<int>& cmp, char fDelimiter=',',char tDelimiter='"'){
-// 	int i=0;
-// 	vector<string>::iterator iw;
-// 	for(iw= w.begin(); iw != w.end();){
-// 		oss<<tDelimiter<<*iw<<tDelimiter<<fDelimiter<<tDelimiter<<db[i]<<tDelimiter<<fDelimiter<<tDelimiter<<cmp[i]<<tDelimiter<<endl;
-// 		++i;
-// 		++iw;
-// 	}
-// }
-
-
-
-
-// // void wDiff(vector<string>& w, string ss, ostream& oss){
-// // 	oss<<ss<<endl;
-// // 	vector<string>::iterator iw;
-	
-// // 	for(iw= w.begin(); iw != w.end();){
-// // 		oss<<*iw<<endl;
-// // 		++iw;
-// // 	}
-// // }
+void wRep(ostream& oss, splusii sii, char fDelimiter=',',char tDelimiter='"'){
+	for(int i=0; i < sii.vs.size(); ++i){
+		oss<<tDelimiter<<sii.vs[i]<<tDelimiter<<fDelimiter<<tDelimiter<<sii.vis[i]<<tDelimiter<<fDelimiter<<tDelimiter<<sii.vic[i]<<tDelimiter<<endl;
+	}
+}
 
 
 

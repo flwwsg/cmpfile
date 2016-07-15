@@ -3,51 +3,55 @@
 
 
 int main(int argc, char const *argv[]){
-	cmpfile f;
-	// string dbName = "dbsource.txt";
-	// string cmpName = "cmptarget.txt";
+	
+	string srcName = "source.txt";
+	string cmpName = "target.txt";
 	
 	// if(argc == 3){
 	//   string dbName= argv[1];
 	//   string cmpName= argv[2];	  
 	// }
 
-	// ifstream dbFs(dbName.c_str());
-	// ifstream cmpFs(cmpName.c_str());
+	ifstream srcfs(srcName.c_str());
+	ifstream cmpfs(cmpName.c_str());
 	
-	// if(!dbFs || !cmpFs){
-	// 	cout<<"No such file named "<<dbName<<" or "<<cmpName<<endl;
-	// 	return -1;
-	// }
+	if(!srcfs || !cmpfs){
+		cout<<"No such file named "<<srcName<<" or "<<cmpName<<endl;
+		return -1;
+	}
 
-	// dbName = "out.csv";
-	// ofstream tcsv(dbName.c_str());
-	// // ofstream ocmp(cmpName.c_str());
-	// if(!tcsv){
-	// 	cout<<"can't write file named "<<dbName<<endl;
-	// 	return -1;
-	// }
-	// std::vector<string> dbSource;
-	// std::vector<string> cmpTarget;
+	srcName = "out.csv";
+	ofstream tcsv(srcName.c_str());
+	// ofstream ocmp(cmpName.c_str());
+	if(!tcsv){
+		cout<<"can't write file named "<<srcName<<endl;
+		return -1;
+	}
+	std::vector<string> src;
+	std::vector<string> cmp;
 	
-	// rFile(dbSource, dbFs);
-	// rFile(cmpTarget,cmpFs);
+	rFile(src, srcfs);
+	rFile(cmp,cmpfs);
 
-	// cmphone cmp;
-	// cmphone *pcmp = &cmp;
-	// pcmp->getDiff(dbSource, cmpTarget);
-	// pcmp->getUnum(dbSource, cmpTarget);
+	cmpfile f;
+	// cmpfile *pf = &f;
+	f.gRepIterms(src, cmp);
+	f.gUniqIterms(src, 0);
+	f.gUniqIterms(cmp, 1);
 
-	// string title ="\"phone\",\"dbsource\",\"cmptarget\"";
-	// tcsv<<title<<endl;
-	// if(pcmp->getUdb().size())
-	// 	wUniq(tcsv, pcmp->getUdb(), pcmp->getNumudb(), 1);
-	
-	// if(pcmp->getUcmp().size())
-	// 	wUniq(tcsv, pcmp->getUcmp(),pcmp->getNumucmp(), 0);
-	
-	// if(pcmp->getRep().size())
-	// 	wRep(tcsv, pcmp->getRep(), pcmp->getRnumdb(), pcmp->getRnumcmp());
+	string title ="\"iterms\",\"src\",\"cmp\"";
+	tcsv<<title<<endl;
+
+		// wRep(ostream& oss, splusii sii, char fDelimiter=',',char tDelimiter='"')
+	if(f.getRepSize())
+		wRep(tcsv, f.getRep());
+
+// wUniq(ostream& oss, splusi s, bool t=true,char fDelimiter=',',char tDelimiter='"')
+	if(f.getUniqSize(0))
+		wUniq(tcsv, f.getUniq(0), true);
+
+	if(f.getUniqSize(1))
+		wUniq(tcsv, f.getUniq(1), false);
 	
 
 

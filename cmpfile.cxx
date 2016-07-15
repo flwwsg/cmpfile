@@ -5,141 +5,113 @@ struct splusi{
   vector<int> vi;
 };
 
+struct splusii{
+	std::vector<string> vs;
+	std::vector<int> vis;
+	std::vector<int> vic;
+};
+
 class cmpfile{
 public:
-	std::vector<int>& getNums(int n=0){
+	splusi getUniq(int n =0){
 		if(n < 0 || n >= s.size())
-			return s[0].vi;
+			return s[0];
 		else
-			return s[n].vi;
+			return s[n];
 	}
 
-	std::vector<string>& getItems(int n=0){
+	int getUniqSize(int n=0){
 		if(n < 0 || n >= s.size())
-			return s[0].vs;
+			return s[0].vs.size();
 		else
-			return s[n].vs;
-	};
+			return s[n].vs.size();
+	}
 
+	splusii getRep(){
+		return rep;
+	}
 
-
+	int getRepSize(){
+		return rep.vs.size();
+	}
 
 	cmpfile(){
-		
-		splusi repdb, repcmp, udb, ucmp;
-		s.push_back(repdb);
-		s.push_back(repcmp);
+		splusi udb, ucmp;
 		s.push_back(udb);
 		s.push_back(ucmp);
 
 	};
-	// std::vector<string>& getRep(){
-	// 	return rep;
-	// }
 
-	// std::vector<string>& getUdb(){
-	// 	return udb;
-	// }
-
-	// std::vector<string>& getUcmp(){
-	// 	return ucmp;
-	// }
-
-	// vector<int>& getRnumdb(){
-	// 	return rnumdb;
-	// }
-
-	// std::vector<int>& getRnumcmp(){
-	// 	return rnumcmp;
-	// }
-	
-	// std::vector<int>& getNumudb(){
-	// 	return numudb;
-	// }
-	
-	// std::vector<int>& getNumucmp(){
-	// 	return numucmp;
-	// }
-
-	// inline int delData(vector<string>& tmp, string target);	
-	// void getDiff(vector<string>& db, vector<string>& cmp);
-	// void getUnum(vector<string>& db, vector<string>& cmp);
+	int delData(vector<string>& tmp, string target);
+	void gRepIterms(vector<string>& src, vector<string>& cmp);
+	void gUniqIterms(vector<string>& vv, int n);
 private:
-	// std::vector<string> rep;
-	// std::vector<string> udb;
-	// std::vector<string> ucmp;
-	// vector<int> rnumdb;
-	// vector<int> rnumcmp;
-	// vector<int> numudb;
-	// vector<int> numucmp;
-	// splusi repdb, repcmp, udb, ucmp;
 	std::vector<splusi> s;
+	splusii rep;
 	
 
 };
-// inline int cmpfile::delData(vector<string>& tmp, string target){
-//   vector<string>::iterator ktmp;
-//   int num=0;
-//   for(ktmp = tmp.begin(); ktmp != tmp.end();){
-//       if(target != *ktmp){
-// 	  ++ktmp;
-// 	  continue;
-//     }else{
-// 	  num++;
-// 	  ktmp = tmp.erase(ktmp);
-//     }
-//   }
+
+//return repeat numbers and delet target from tmp
+int cmpfile::delData(vector<string>& tmp, string target){
+ vector<string>::iterator ktmp;
+  int num=0;
+  for(ktmp = tmp.begin(); ktmp != tmp.end();){
+      if(target != *ktmp){
+	  ++ktmp;
+	  continue;
+    }else{
+	  num++;
+	  ktmp = tmp.erase(ktmp);
+    }
+  }
   
-//   return num;
+  return num;
   
-// }
-// void cmpfile::getDiff(vector<string>& db, vector<string>& cmp){
-// 	vector<string>::iterator idb;
-// 	int cdb=0, ccmp=0;
+}
 
-// 	for(idb = db.begin(); idb != db.end();){
-// 		string tmp = *idb;
-// 		///find *idb in cmp
-// 	  ccmp = delData(cmp, tmp);
+//find repeat numbers;
+void cmpfile::gRepIterms(vector<string>& src, vector<string>& cmp){
+	vector<string>::iterator isrc;
+	int csrc=0, ccmp=0;
 
-	 
-// 	  if(ccmp){
-// 	    cdb = delData(db, tmp);
+	for(isrc = src.begin(); isrc != src.end();){
+		string tmp = *isrc;
+		///find *isrc in cmp
+	  ccmp = delData(cmp, tmp);
 
-// 	    //db and cmp both exist *idb;
-// 	    if(cdb == ccmp){
-// 	    	--idb;
-// 	    }
-// 	    else{
-// 	    	rep.push_back(tmp);
-// 	    	rnumdb.push_back(cdb);
-// 	    	rnumcmp.push_back(ccmp);
-// 	    	--idb;
-// 	    }
+	  if(ccmp){
+	    csrc = delData(src, tmp);
 
-// 	  }
-// 	  ++idb;
-// 	}
-// }
+	    //src and cmp both exist *idb;
+	    if(csrc == ccmp){
+	    	--isrc;
+	    }
+	    else{
+	    	//count *isrc in src and cmp
+	    	rep.vs.push_back(tmp);
+	    	rep.vis.push_back(csrc);
+	    	rep.vic.push_back(ccmp);
+	    	--isrc;
+	    }
 
-// void cmpfile::getUnum(vector<string>& db, vector<string>& cmp){
-//   vector<string>::iterator idb, icmp;
-//   for(idb = db.begin(); idb != db.end();){
-//     string tmp = *idb;
-//     int count = delData(db, tmp);
-//     udb.push_back(tmp);
-//     numudb.push_back(count);
-//     --idb;
-//     ++idb;
-//   }
-  
-//    for(icmp = cmp.begin(); icmp != cmp.end();){
-//     string tmp = *icmp;
-//     int count = delData(cmp, tmp);
-//     ucmp.push_back(tmp);
-//     numucmp.push_back(count);
-//     --icmp;
-//     ++icmp;
-//   }
-// }
+	  }
+	  ++isrc;
+	}
+}
+
+void cmpfile::gUniqIterms(vector<string>& vv, int n=0){
+  vector<string>::iterator ivv;
+  splusi si;
+  for(ivv = vv.begin(); ivv != vv.end();){
+    string tmp = *ivv;
+    int count = delData(vv, tmp);
+    si.vs.push_back(tmp);
+    si.vi.push_back(count);
+
+    --ivv;
+    ++ivv;
+  }
+  s[n] = si;
+}
 
