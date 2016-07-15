@@ -1,2 +1,5 @@
-*.html
+*.out
+*.a
+*.o
 *.txt
+.directory

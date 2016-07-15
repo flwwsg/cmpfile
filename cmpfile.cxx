@@ -7,6 +7,23 @@ struct splusi{
 
 class cmpfile{
 public:
+	std::vector<int>& getNums(int n=0){
+		if(n < 0 || n >= s.size())
+			return s[0].vi;
+		else
+			return s[n].vi;
+	}
+
+	std::vector<string>& getItems(int n=0){
+		if(n < 0 || n >= s.size())
+			return s[0].vs;
+		else
+			return s[n].vs;
+	};
+
+
+
+
 	cmpfile(){
 		
 		splusi repdb, repcmp, udb, ucmp;
